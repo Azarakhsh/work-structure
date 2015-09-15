@@ -1,6 +1,6 @@
-@import "bootstrap";
-
-
-body{
-	background: #aabbcc;
-}
+@import "compass";
+@import "variables";
+@import "mixins";
+@import "base";
+@import "layout";
+@import "modules";

@@ -2,6 +2,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-compass');
 
 	grunt.initConfig({
@@ -29,6 +30,13 @@ module.exports = function(grunt) {
 		    }
 		  } //target
 		}, //cssmin
+		copy: {
+			 main: {
+			    files: [			      
+			    {expand: false, src: ['node_modules/jquery/dist/jquery.min.js'], dest: 'assets/js/vendors/jquery.min.js', filter: 'isFile'}
+			      ] 
+			 } //main
+		}, //copy
 		compass: {
 			dev: {
 				options: {
@@ -38,10 +46,10 @@ module.exports = function(grunt) {
 		}, //compass
 		watch: {
 			options: { livereload: true },
-			custom_js: {
-				files:['develop/components/js/custom.js'],
-				tasks: ['uglify:custom_js']
-			}, //script
+			vendors_js: {
+				files:['develop/components/js/vendors/*.js'],
+				tasks: ['uglify:vendors_js']
+			}, //vendors_js
 			vendors_js: {
 				files:['develop/components/js/vendors/*.js'],
 				tasks: ['uglify:vendors_js']
@@ -59,5 +67,5 @@ module.exports = function(grunt) {
 			} //html
 		} //watch
 	}); //initConfig
-	grunt.registerTask('default', 'watch');
+	grunt.registerTask('default', ['copy', 'watch']);
 } //exports
